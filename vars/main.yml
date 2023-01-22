@@ -1,0 +1,10 @@
+---
+# vars file for pwsh-install
+pwsh_version_num: 7.3.1
+pwsh_download_url: "https://github.com/PowerShell/PowerShell/releases/download/v{{ pwsh_version_num }}/PowerShell-{{ pwsh_version_num }}-win-x64.msi"
+pwsh_installer_name: "{{ pwsh_download_url | basename }}"
+pwsh_installer_dest: "{{ role_working_dir }}\\{{ pwsh_installer_name }}"
+pwsh_product_id: "{B5FC945E-99EE-4DB8-9AA4-B63D56D886CC}"
+pwsh_installer_log: "{{ role_working_dir }}\\{{ pwsh_installer_name | regex_replace('\\.[^\\.]+$', '.log') }}"
+
+role_working_dir: "{{ working_dir if (working_dir is defined) else ansible_facts.env.SystemDrive+'/osd/installers' }}"

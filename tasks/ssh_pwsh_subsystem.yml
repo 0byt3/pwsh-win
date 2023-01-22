@@ -1,0 +1,10 @@
+- name: "Add PowerShell subsystem support to OpenSSH Server"
+  community.windows.win_lineinfile:
+    insertafter: "[Ss]ubsystem[ \t]+sftp"
+    line: "Subsystem\tpowershell\t{{ pwsh_exe_short_path | replace(x_backslash, '/') }} -sshs -NoLogo"
+    path: "{{ ansible_facts.env.ProgramData }}\\ssh\\sshd_config"
+    regex: "Subsystem.*powershell"
+    state: "present"
+  vars:
+    x_backslash: "\\"
+  notify: ["restart sshd"]

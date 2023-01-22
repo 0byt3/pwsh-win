@@ -1,0 +1,10 @@
+- name: "Set PowerShell default shell"
+  ansible.windows.win_regedit:
+    data: "{{ item.data }}"
+    name: "{{ item.name }}"
+    path: "HKLM:\\SOFTWARE\\OpenSSH"
+    type: "string"
+  loop:
+    - {data: "{{ pwsh_exe_long_path }}", name: "DefaultShell"}
+    - {data: "/c", name: "DefaultShellCommandOption"}
+  notify: ["restart sshd"]

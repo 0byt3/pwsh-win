@@ -1,0 +1,7 @@
+---
+# handlers file for pwsh-win
+
+- name: "restart sshd"
+  ansible.windows.win_service:
+    name: "sshd"
+    state: "restarted"
